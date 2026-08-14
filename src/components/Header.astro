@@ -1,17 +1,39 @@
 ---
-import Logo from './Logo.astro';
 import NewsTicker from './NewsTicker.astro';
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Articles', href: '/articles' },
-  { label: 'Threat Intel', href: '/threat-intel' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'HOME', href: '/' },
+  { label: 'THREAT INTEL', href: '/threat-intel' },
+  { label: 'ARTICLES', href: '/articles' },
+  { label: 'CONTACT', href: '/contact' },
+  { label: 'ABOUT', href: '/about' },
 ];
 ---
 <header class="tsd-header">
   <div class="tsd-container tsd-header__bar">
-    <a href="/" class="tsd-header__logo"><Logo /></a>
+    <a href="/" class="tsd-logo" aria-label="The Security Desk — Home">
+      <span class="tsd-logo__icon" aria-hidden="true">
+        <svg viewBox="0 0 64 62">
+          <rect x="13" y="0" width="38" height="28" rx="2" fill="none" stroke="#0A1628" stroke-width="2.4"/>
+          <rect x="16" y="3" width="32" height="22" rx="1" fill="#007FCC" opacity="0.1"/>
+          <line x1="19" y1="8" x2="37" y2="8" stroke="#007FCC" stroke-width="1.8" opacity="0.85"/>
+          <line x1="19" y1="13" x2="30" y2="13" stroke="#007FCC" stroke-width="1.8" opacity="0.65"/>
+          <line x1="19" y1="18" x2="34" y2="18" stroke="#007FCC" stroke-width="1.8" opacity="0.5"/>
+          <rect x="19" y="23" width="5" height="1.6" rx="0.5" fill="#0A1628" opacity="0.8"/>
+          <rect x="30" y="28" width="4" height="7" rx="1" fill="#0A1628"/>
+          <rect x="23" y="35" width="18" height="3" rx="1.5" fill="#0A1628"/>
+          <rect x="0" y="38" width="64" height="4" rx="2" fill="#0A1628"/>
+          <rect x="4" y="42" width="3.5" height="16" rx="1.5" fill="#0A1628" opacity="0.6"/>
+          <rect x="56.5" y="42" width="3.5" height="16" rx="1.5" fill="#0A1628" opacity="0.6"/>
+          <rect x="4" y="54" width="56" height="2" rx="1" fill="#0A1628" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="tsd-logo__wrap">
+        <span class="tsd-logo__the">THE</span>
+        <span class="tsd-logo__name"><b>Security</b> <i>Desk</i></span>
+        <span class="tsd-logo__rule"></span>
+      </span>
+    </a>
     <nav class="tsd-header__nav">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
@@ -20,8 +42,26 @@ const navItems = [
 </header>
 
 <style>
-.tsd-header__bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; }
-.tsd-header__nav { display: flex; gap: 1.75rem; font-family: var(--font-mono); font-size: 0.9rem; }
-.tsd-header__nav a { text-decoration: none; color: var(--tsd-muted); }
-.tsd-header__nav a:hover { color: var(--tsd-cyan); }
+.tsd-header { background: var(--tsd-white); border-bottom: 1px solid var(--tsd-border); box-shadow: var(--tsd-shadow-sm); position: sticky; top: 0; z-index: 1000; }
+.tsd-header__bar { display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
+.tsd-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.tsd-logo__icon { flex-shrink: 0; display: flex; }
+.tsd-logo__icon svg { width: 32px; height: 31px; display: block; }
+.tsd-logo__wrap { display: flex; flex-direction: column; }
+.tsd-logo__the { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.24em; color: var(--tsd-cyan-dark); margin-bottom: 0.15rem; }
+.tsd-logo__name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.01em; white-space: nowrap; line-height: 1; }
+.tsd-logo__name b { color: var(--tsd-navy); font-weight: 700; }
+.tsd-logo__name i { color: var(--tsd-cyan-dark); font-style: normal; font-weight: 700; }
+.tsd-logo__rule { display: block; height: 2px; margin-top: 0.25rem; background: linear-gradient(90deg, var(--tsd-cyan-dark), transparent); }
+.tsd-header__nav { display: flex; gap: 0.15rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; }
+.tsd-header__nav a {
+  color: var(--tsd-text-mid); padding: 0.5rem 0.9rem; border-radius: var(--tsd-r);
+  position: relative; text-decoration: none; transition: color 0.2s ease;
+}
+.tsd-header__nav a::after {
+  content: ''; position: absolute; bottom: 2px; left: 0.9rem; right: 0.9rem; height: 2px;
+  background: var(--tsd-cyan); transform: scaleX(0); transition: transform 0.2s ease;
+}
+.tsd-header__nav a:hover { color: var(--tsd-navy); }
+.tsd-header__nav a:hover::after { transform: scaleX(1); }
 </style>

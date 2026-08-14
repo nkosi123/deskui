@@ -1,20 +1,19 @@
 ---
-// src/components/Logo.astro
 ---
 <span class="tsd-logo">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tsd-cyan)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--tsd-accent-cyan)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
     <rect x="2" y="3" width="20" height="14" rx="2"/>
     <path d="M8 21h8M12 17v4"/>
   </svg>
   <span class="tsd-logo__text">
-    <span class="tsd-logo__pre">The</span>
-    <span class="tsd-logo__main">Security Desk</span>
+    <span class="tsd-logo__pre">THE</span>
+    <span class="tsd-logo__main">SECURITY<br/>DESK</span>
   </span>
 </span>
 
 <style>
 .tsd-logo { display: inline-flex; align-items: center; gap: 0.6rem; }
-.tsd-logo__text { display: flex; flex-direction: column; line-height: 1; }
-.tsd-logo__pre { font-family: var(--font-mono); font-size: 0.65rem; color: var(--tsd-muted); letter-spacing: 0.08em; text-transform: uppercase; }
-.tsd-logo__main { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--tsd-white); }
+.tsd-logo__text { display: flex; flex-direction: column; line-height: 1.1; }
+.tsd-logo__pre { font-family: var(--font-mono); font-size: 0.65rem; color: var(--tsd-accent-cyan); letter-spacing: 0.08em; text-transform: uppercase; }
+.tsd-logo__main { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; color: var(--tsd-text-primary); }
 </style>

@@ -1,18 +1,26 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  background: var(--tsd-navy);
-  color: var(--tsd-white);
+  background: var(--tsd-bg);
+  color: var(--tsd-text);
   font-family: var(--font-body);
   line-height: 1.6;
 }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; }
-a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--tsd-navy); }
+a { color: var(--tsd-cyan-dark); text-decoration: none; }
+a:hover { color: var(--tsd-cyan); }
 .tsd-container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 .tsd-tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--tsd-cyan);
+  color: var(--tsd-cyan-dark);
+  background: var(--tsd-cyan-subtle);
+  border: 1px solid var(--tsd-cyan-border);
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--tsd-r-sm);
+  display: inline-block;
+  transition: all 0.2s ease;
 }
+.tsd-tag:hover { background: var(--tsd-navy); color: var(--tsd-cyan); border-color: var(--tsd-navy); }

@@ -1,12 +1,44 @@
 :root {
+  /* Dark navy — used only for accent bands: header logo icon, ticker, hero, stats bar, footer */
   --tsd-navy: #0A1628;
-  --tsd-navy-light: #0F1E36;
-  --tsd-cyan: #00A8FF;
-  --tsd-white: #F5F7FA;
-  --tsd-muted: #8A94A6;
-  --tsd-line: rgba(255, 255, 255, 0.08);
+  --tsd-navy-mid: #122040;
+  --tsd-navy-light: #1A3A6B;
 
-  --font-display: 'Playfair Display', serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --font-body: 'Source Sans 3', sans-serif;
+  /* Cyan accent */
+  --tsd-cyan: #00A8FF;
+  --tsd-cyan-dark: #007FCC;      /* text/icons on light backgrounds */
+  --tsd-cyan-bright: #00D4FF;    /* hover state */
+  --tsd-cyan-subtle: rgba(0, 168, 255, 0.07);
+  --tsd-cyan-border: rgba(0, 168, 255, 0.25);
+  --tsd-cyan-glow: rgba(0, 168, 255, 0.18);
+
+  /* Page — LIGHT by default */
+  --tsd-bg: #F5F7FA;
+  --tsd-bg-card: #FFFFFF;
+  --tsd-bg-alt: #EEF1F6;
+  --tsd-white: #FFFFFF;
+
+  /* Text */
+  --tsd-text: #1C2B3A;
+  --tsd-text-mid: #3D5166;
+  --tsd-text-light: #6B8299;
+  --tsd-muted: rgba(255, 255, 255, 0.6); /* muted text ON dark bands only */
+
+  /* Borders */
+  --tsd-border: #D4DCE8;                 /* light-band borders */
+  --tsd-line: rgba(255, 255, 255, 0.08); /* dark-band borders */
+
+  /* Shadows / radius */
+  --tsd-shadow-sm: 0 2px 8px rgba(10,22,40,.08);
+  --tsd-shadow-md: 0 6px 24px rgba(10,22,40,.12);
+  --tsd-shadow-lg: 0 16px 48px rgba(10,22,40,.16);
+  --tsd-shadow-cyan: 0 0 24px rgba(0,168,255,.2);
+  --tsd-r-sm: 3px;
+  --tsd-r: 5px;
+  --tsd-r-md: 8px;
+  --tsd-r-lg: 12px;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
 }

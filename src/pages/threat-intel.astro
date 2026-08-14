@@ -6,12 +6,47 @@ import { getArticlesByCategory } from '../lib/strapi.js';
 const articles = await getArticlesByCategory('threat-intelligence');
 ---
 <BaseLayout title="Threat Intel | The Security Desk">
-  <h1>Threat Intelligence</h1>
+  <section class="tsd-articles-header">
+    <span class="tsd-label">Threat Intelligence</span>
+    <h1>Latest Threats</h1>
+    <p>Real-time threat intelligence and analysis of emerging threats, vulnerabilities, and security incidents.</p>
+  </section>
+
   <section class="tsd-grid">
-    {articles.map((article) => <ArticleCard article={article} />)}
+    {articles.length > 0 ? (
+      articles.map((article) => <ArticleCard article={article} />)
+    ) : (
+      <p>No threat intelligence articles yet. Check back soon!</p>
+    )}
   </section>
 </BaseLayout>
 
 <style>
-.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 1rem 0 2rem; }
+.tsd-articles-header {
+  text-align: center;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--tsd-border-light);
+  margin-bottom: 2rem;
+}
+.tsd-articles-header h1 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+.tsd-articles-header p {
+  font-size: 1.1rem;
+  color: var(--tsd-text-secondary);
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.tsd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .tsd-grid { grid-template-columns: 1fr; }
+}
 </style>

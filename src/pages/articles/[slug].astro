@@ -10,20 +10,222 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const article = await getArticleBySlug(slug);
+
+// Calculate reading time (rough estimate: 200 words per minute)
+const wordCount = article.body ? article.body.split(/\s+/).length : 0;
+const readingTime = Math.max(1, Math.round(wordCount / 200));
 ---
 <BaseLayout title={article.title} description={article.excerpt}>
   <article class="tsd-article">
-    <span class="tsd-tag">{article.category}</span>
-    <h1>{article.title}</h1>
-    <p class="tsd-article__meta">{article.author} · {new Date(article.publishedDate).toLocaleDateString()}</p>
-    {article.imageUrl && <img src={article.imageUrl} alt={article.title} />}
-    <div class="tsd-article__body" set:html={marked.parse(article.body || '')} />
+    <div class="tsd-article__header">
+      <a href="/articles" class="tsd-back">← Back to Articles</a>
+      <span class="tsd-label">Article</span>
+      <h1>{article.title}</h1>
+      <div class="tsd-article__meta">
+        <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${article.author}`} alt={article.author} class="tsd-avatar" />
+        <div>
+          <div class="tsd-author">{article.author}</div>
+          <div class="tsd-date">{new Date(article.publishedDate).toLocaleDateString()}</div>
+        </div>
+      </div>
+    </div>
+
+    {article.imageUrl && <img src={article.imageUrl} alt={article.title} class="tsd-featured-image" />}
+
+    <div class="tsd-article__body">
+      <div class="tsd-article__content" set:html={marked.parse(article.body || '')} />
+      
+      <aside class="tsd-article__sidebar">
+        <div class="tsd-sidebar-card">
+          <div class="tsd-card-label">Published</div>
+          <div class="tsd-card-value">{new Date(article.publishedDate).toLocaleDateString()}</div>
+        </div>
+        
+        <div class="tsd-sidebar-card">
+          <div class="tsd-card-label">Category</div>
+          <div class="tsd-card-value"><a href="#">{article.category}</a></div>
+        </div>
+        
+        <div class="tsd-sidebar-card">
+          <div class="tsd-card-label">Reading Time</div>
+          <div class="tsd-card-value">{readingTime} MIN READ</div>
+        </div>
+
+        <div class="tsd-sidebar-card tsd-author-bio">
+          <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${article.author}`} alt={article.author} />
+          <h4>{article.author}</h4>
+          <p class="tsd-role">Security Analyst</p>
+          <p>Independent cybersecurity researcher and writer at The Security Desk, focusing on threat intelligence, security, and defensive operations.</p>
+        </div>
+
+        <div class="tsd-sidebar-card tsd-share">
+          <div class="tsd-card-label">Share</div>
+          <a href="#" class="tsd-share-btn">𝕏 Twitter</a>
+          <a href="#" class="tsd-share-btn">in LinkedIn</a>
+          <a href="#" class="tsd-share-btn">⚡ Copy Link</a>
+        </div>
+      </aside>
+    </div>
   </article>
 </BaseLayout>
 
 <style>
-.tsd-article { max-width: 760px; margin: 0 auto; padding: 2rem 0; }
-.tsd-article img { width: 100%; border-radius: 6px; margin: 1.5rem 0; }
-.tsd-article__meta { color: var(--tsd-muted); font-family: var(--font-mono); font-size: 0.85rem; }
-.tsd-article__body { line-height: 1.8; }
+.tsd-article {
+  padding: 3rem 0;
+}
+.tsd-article__header {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--tsd-border-light);
+}
+.tsd-back {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--tsd-text-secondary);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1rem;
+}
+.tsd-back:hover {
+  color: var(--tsd-accent-cyan);
+}
+.tsd-article__header h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin: 1rem 0;
+}
+.tsd-article__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.tsd-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--tsd-bg-tertiary);
+}
+.tsd-author {
+  font-weight: 600;
+  color: var(--tsd-text-primary);
+}
+.tsd-date {
+  font-size: 0.85rem;
+  color: var(--tsd-text-muted);
+}
+
+.tsd-featured-image {
+  width: 100%;
+  border-radius: 6px;
+  margin: 2rem 0;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.tsd-article__body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3rem;
+  max-width: 1000px;
+}
+.tsd-article__content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--tsd-text-secondary);
+}
+.tsd-article__content h2 {
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--tsd-text-primary);
+}
+.tsd-article__content p {
+  margin-bottom: 1rem;
+}
+
+.tsd-article__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.tsd-sidebar-card {
+  background: var(--tsd-bg-secondary);
+  border: 1px solid var(--tsd-border-light);
+  padding: 1.25rem;
+  border-radius: 6px;
+}
+.tsd-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tsd-accent-cyan);
+  margin-bottom: 0.5rem;
+}
+.tsd-card-value {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--tsd-text-primary);
+}
+.tsd-card-value a {
+  color: var(--tsd-accent-cyan);
+}
+
+.tsd-author-bio {
+  text-align: center;
+}
+.tsd-author-bio img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background: var(--tsd-bg-tertiary);
+}
+.tsd-author-bio h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+}
+.tsd-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tsd-accent-cyan);
+  margin: 0 0 0.75rem 0;
+}
+.tsd-author-bio p {
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--tsd-text-secondary);
+}
+
+.tsd-share {
+  text-align: center;
+}
+.tsd-share-btn {
+  display: block;
+  padding: 0.75rem;
+  border: 1px solid var(--tsd-border-light);
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--tsd-accent-cyan);
+  transition: background 0.2s;
+}
+.tsd-share-btn:hover {
+  background: var(--tsd-bg-tertiary);
+}
+
+@media (max-width: 768px) {
+  .tsd-article__body {
+    grid-template-columns: 1fr;
+  }
+  .tsd-article__header h1 {
+    font-size: 1.8rem;
+  }
+}
 </style>

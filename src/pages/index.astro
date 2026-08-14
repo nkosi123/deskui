@@ -1,16 +1,194 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
-import { getArticles } from '../lib/strapi.js';
+import { getArticles, getArticlesByCategory } from '../lib/strapi.js';
 
-const articles = await getArticles();
+const allArticles = await getArticles();
+const threatIntel = await getArticlesByCategory('threat-intelligence');
+const featured = allArticles.slice(0, 3);
 ---
 <BaseLayout title="The Security Desk">
-  <section class="tsd-grid">
-    {articles.map((article) => <ArticleCard article={article} />)}
+  <!-- Hero Section -->
+  <section class="tsd-hero">
+    <div class="tsd-hero__inner">
+      <div class="tsd-hero__content">
+        <span class="tsd-eyebrow">Cybersecurity Intelligence</span>
+        <h1>Stay Ahead of <span class="tsd-accent">Every Threat.</span></h1>
+        <p class="tsd-hero__tagline">
+          <strong>Where Knowledge Becomes Your First Defence.</strong><br />
+          Independent threat intelligence, vulnerability analysis, and security research — curated for practitioners.
+        </p>
+        <div class="tsd-hero__cta">
+          <a href="#latest-threats" class="tsd-btn tsd-btn--primary">Latest Threats</a>
+          <div class="tsd-search-wrap">
+            <input type="text" placeholder="Search..." class="tsd-search" />
+          </div>
+        </div>
+      </div>
+      <div class="tsd-hero__visual">
+        <div class="tsd-terminal">
+          <div class="tsd-terminal__header">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span>threat-monitor.sh</span>
+          </div>
+          <div class="tsd-terminal__body">
+            <div class="cmd">$ ./scan --live --feed=all</div>
+            <div>✓ Connected to threat feeds</div>
+            <div>✓ CVE database synced</div>
+            <div class="warn">⚠ 3 critical advisories today</div>
+            <div>✓ MITRE ATT&CK updated</div>
+            <div>✓ IOC watchlist active</div>
+            <div class="cmd">$ monitor --continuous</div>
+            <div class="blink">$ Monitoring active...</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <!-- Stats Bar -->
+  <section class="tsd-stats">
+    <div class="tsd-container tsd-stats__inner">
+      <div class="tsd-stat"><span class="tsd-stat__value">2,400+</span><span class="tsd-stat__label">CVEs Tracked</span></div>
+      <div class="tsd-stat"><span class="tsd-stat__value">180+</span><span class="tsd-stat__label">Articles Published</span></div>
+      <div class="tsd-stat"><span class="tsd-stat__value">Daily</span><span class="tsd-stat__label">Threat Updates</span></div>
+      <div class="tsd-stat"><span class="tsd-stat__value">100%</span><span class="tsd-stat__label">Independent & Ad-Free</span></div>
+    </div>
+  </section>
+
+  <!-- Quote Banner -->
+  <section class="tsd-quote">
+    <blockquote>"Security is not a product to be bought — <strong>it is</strong> a discipline to be practised. We exist to share the knowledge that makes that discipline possible."</blockquote>
+  </section>
+
+  <!-- Latest Threats -->
+  {threatIntel.length > 0 && (
+    <section class="tsd-section" id="latest-threats">
+      <div class="tsd-container">
+        <div class="tsd-section__header">
+          <div><span class="tsd-eyebrow">Threat Intelligence</span><h2>Latest Threats</h2></div>
+          <a href="/threat-intel" class="tsd-link">View All →</a>
+        </div>
+        <div class="tsd-grid">
+          {threatIntel.slice(0, 3).map((article) => <ArticleCard article={article} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Featured Articles -->
+  {featured.length > 0 && (
+    <section class="tsd-section">
+      <div class="tsd-container">
+        <div class="tsd-section__header">
+          <div><span class="tsd-eyebrow">Knowledge Base</span><h2>Featured Articles</h2></div>
+        </div>
+        <div class="tsd-grid">
+          {featured.map((article) => <ArticleCard article={article} />)}
+        </div>
+      </div>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
-.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 2rem 0; }
+.tsd-hero {
+  background: var(--tsd-navy);
+  padding: 5rem 0 4.5rem;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+.tsd-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,168,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.tsd-hero::after {
+  content: ''; position: absolute; top: -120px; right: -120px; width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(0,168,255,.12) 0%, transparent 70%); pointer-events: none;
+}
+.tsd-hero__inner {
+  max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+}
+.tsd-eyebrow {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--tsd-cyan); display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem;
+}
+.tsd-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--tsd-cyan); }
+.tsd-hero h1 { font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 900; color: var(--tsd-white); line-height: 1.1; margin: 0 0 1.2rem 0; }
+.tsd-accent { color: var(--tsd-cyan); font-style: italic; }
+.tsd-hero__tagline { font-size: 1rem; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 480px; margin-bottom: 2rem; }
+.tsd-hero__tagline strong { color: rgba(255,255,255,.92); font-weight: 600; display: block; margin-bottom: 0.4rem; font-size: 1.1rem; }
+.tsd-hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.tsd-btn {
+  font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 0.75rem 1.6rem; border-radius: var(--tsd-r); border: none;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center;
+}
+.tsd-btn--primary { background: var(--tsd-cyan); color: var(--tsd-navy); }
+.tsd-btn--primary:hover { background: var(--tsd-cyan-bright); box-shadow: var(--tsd-shadow-cyan); }
+.tsd-search-wrap { flex: 1; min-width: 200px; }
+.tsd-search {
+  width: 100%; height: 100%; padding: 0.75rem 1rem;
+  background: rgba(255,255,255,0.08); border: 1px solid var(--tsd-cyan-border);
+  border-radius: var(--tsd-r); color: var(--tsd-white); font-family: var(--font-body); font-size: 0.9rem;
+}
+.tsd-search::placeholder { color: rgba(255,255,255,0.4); }
+.tsd-search:focus { outline: none; border-color: var(--tsd-cyan); background: rgba(255,255,255,0.12); }
+
+.tsd-hero__visual { display: flex; justify-content: center; }
+.tsd-terminal {
+  background: rgba(10,22,40,.82); border: 1px solid rgba(0,168,255,.18); border-radius: var(--tsd-r-lg);
+  padding: 1.4rem; width: 100%; max-width: 430px; backdrop-filter: blur(8px);
+  box-shadow: 0 0 36px rgba(0,168,255,.08), var(--tsd-shadow-lg); font-family: var(--font-mono); font-size: 0.85rem;
+}
+.tsd-terminal__header {
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(0,168,255,.09); font-size: 0.75rem; color: rgba(255,255,255,.4);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot:nth-child(1) { background: #FF5F57; }
+.dot:nth-child(2) { background: #FFBD2E; }
+.dot:nth-child(3) { background: #28C840; }
+.tsd-terminal__body div { margin: 0.4rem 0; line-height: 1.5; color: rgba(255,255,255,.78); }
+.tsd-terminal__body .cmd { color: var(--tsd-cyan); }
+.tsd-terminal__body .warn { color: #FFBD2E; }
+.blink { animation: blink 1.1s infinite; }
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0.35; } }
+
+.tsd-stats {
+  background: var(--tsd-navy); border-top: 1px solid rgba(0,168,255,.12); border-bottom: 1px solid rgba(0,168,255,.12); padding: 1.1rem 0;
+  width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+}
+.tsd-stats__inner { display: flex; justify-content: space-around; align-items: center; gap: 2rem; flex-wrap: wrap; }
+.tsd-stat { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.tsd-stat__value { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: var(--tsd-cyan); }
+.tsd-stat__label { font-family: var(--font-body); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+
+.tsd-quote {
+  background: var(--tsd-cyan); color: var(--tsd-navy); padding: 2.75rem 1.5rem; text-align: center;
+  width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+}
+.tsd-quote blockquote { font-family: var(--font-display); font-size: clamp(1.1rem, 2vw, 1.5rem); font-style: italic; font-weight: 700; margin: 0 auto; max-width: 800px; line-height: 1.55; }
+
+.tsd-section { padding: 3.5rem 0; }
+.tsd-section__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+.tsd-section h2 { font-size: 1.8rem; margin: 0.4rem 0 0 0; color: var(--tsd-navy); }
+.tsd-link { color: var(--tsd-cyan-dark); font-family: var(--font-mono); font-size: 0.85rem; white-space: nowrap; }
+.tsd-link:hover { color: var(--tsd-cyan); }
+
+.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+@media (max-width: 900px) {
+  .tsd-hero__inner { grid-template-columns: 1fr; }
+  .tsd-hero__visual { display: none; }
+  .tsd-hero h1 { font-size: 2.2rem; }
+  .tsd-grid { grid-template-columns: 1fr; }
+}
 </style>

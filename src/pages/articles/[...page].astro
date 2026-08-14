@@ -11,21 +11,113 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props;
 ---
 <BaseLayout title="Articles | The Security Desk">
-  <h1>Articles</h1>
+  <section class="tsd-articles-header">
+    <span class="tsd-label">Knowledge Base • Research • Tutorials</span>
+    <h1>Articles & Analysis</h1>
+    <p>In-depth security research, tradecraft walkthroughs, and field intelligence — written to be read, not skimmed.</p>
+  </section>
+
+  <div class="tsd-articles-filter">
+    <label>Filter by topic: 
+      <select>
+        <option>Any</option>
+        <option>Threat Intelligence</option>
+        <option>Vulnerabilities</option>
+        <option>Malware Analysis</option>
+        <option>Industry News</option>
+      </select>
+    </label>
+    <button>Apply</button>
+  </div>
+
   <section class="tsd-grid">
     {page.data.map((article) => <ArticleCard article={article} />)}
   </section>
-  <nav class="tsd-pagination" aria-label="Articles pagination">
+
+  <nav class="tsd-pagination">
     {page.url.prev && <a href={page.url.prev}>← Newer</a>}
-    <span class="tsd-pagination__status">Page {page.currentPage} of {page.lastPage}</span>
+    <span>Page {page.currentPage} of {page.lastPage}</span>
     {page.url.next && <a href={page.url.next}>Older →</a>}
   </nav>
 </BaseLayout>
 
 <style>
-.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 1rem 0 2rem; }
-.tsd-pagination { display: flex; align-items: center; justify-content: center; gap: 2rem; padding: 1.5rem 0 3rem; font-family: var(--font-mono); font-size: 0.85rem; }
-.tsd-pagination a { color: var(--tsd-cyan); text-decoration: none; }
-.tsd-pagination a:hover { text-decoration: underline; }
-.tsd-pagination__status { color: var(--tsd-muted); }
+.tsd-articles-header {
+  text-align: center;
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--tsd-border-light);
+  margin-bottom: 2rem;
+}
+.tsd-articles-header h1 {
+  font-size: 2.5rem;
+  margin: 1rem 0;
+}
+.tsd-articles-header p {
+  font-size: 1.1rem;
+  color: var(--tsd-text-secondary);
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.tsd-articles-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+}
+.tsd-articles-filter label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.tsd-articles-filter select {
+  padding: 0.5rem;
+  border: 1px solid var(--tsd-border-light);
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+.tsd-articles-filter button {
+  padding: 0.5rem 1.5rem;
+  background: var(--tsd-bg-secondary);
+  border: 1px solid var(--tsd-border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.tsd-articles-filter button:hover {
+  background: var(--tsd-bg-tertiary);
+}
+
+.tsd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.tsd-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+.tsd-pagination a {
+  color: var(--tsd-accent-cyan);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--tsd-border-light);
+  border-radius: 4px;
+}
+.tsd-pagination a:hover {
+  background: var(--tsd-bg-secondary);
+}
+
+@media (max-width: 768px) {
+  .tsd-grid { grid-template-columns: 1fr; }
+  .tsd-articles-header h1 { font-size: 1.8rem; }
+}
 </style>

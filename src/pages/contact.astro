@@ -2,18 +2,193 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 <BaseLayout title="Contact | The Security Desk">
-  <h1>Contact</h1>
-  <form name="contact" method="POST" data-netlify="true" class="tsd-form">
-    <input type="hidden" name="form-name" value="contact" />
-    <label>Name <input type="text" name="name" required /></label>
-    <label>Email <input type="email" name="email" required /></label>
-    <label>Message <textarea name="message" rows="5" required></textarea></label>
-    <button type="submit">Send</button>
-  </form>
+  <section class="tsd-contact">
+    <div class="tsd-contact__head">
+      <h1>Contact Us</h1>
+      <p>Have a question, tip, or want to collaborate? We are here to help.</p>
+    </div>
+
+    <div class="tsd-contact__grid">
+      <div class="tsd-contact__left">
+        <h2>Send us a message</h2>
+        <p class="tsd-contact__sub">Do you have a question? A vulnerability to report? Or need help with a collaboration? Feel free to contact us.</p>
+
+        <form>
+          <div class="tsd-contact__row">
+            <div>
+              <label for="c-name">Name</label>
+              <input type="text" id="c-name" placeholder="Enter your name" />
+            </div>
+            <div>
+              <label for="c-email">Email Address</label>
+              <input type="email" id="c-email" placeholder="your@email.com" />
+            </div>
+          </div>
+          <div class="tsd-contact__field">
+            <label for="c-subject">Subject</label>
+            <select id="c-subject">
+              <option value="">- Select -</option>
+              <option>General Enquiry</option>
+              <option>Article Tip/Suggestion</option>
+              <option>Responsible Disclosure</option>
+              <option>Collaboration/Guest Post</option>
+              <option>Feedback</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="tsd-contact__field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" rows="5" placeholder="Enter your message..."></textarea>
+          </div>
+          <button type="submit" class="tsd-contact__btn">Send a Message</button>
+          <div class="tsd-contact__note"><strong>Note:</strong> We typically respond within 24-48 hours. For urgent disclosures, please mark the subject accordingly.</div>
+        </form>
+      </div>
+
+      <div class="tsd-contact__right">
+        <h3>We are always here<br />to help you.</h3>
+
+        <div class="tsd-contact__item">
+          <div class="tsd-contact__icon">
+            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>
+          </div>
+          <div>
+            <p class="tsd-contact__label">Response Time</p>
+            <p class="tsd-contact__value">Within 24-48 hours</p>
+          </div>
+        </div>
+
+        <div class="tsd-contact__item">
+          <div class="tsd-contact__icon">
+            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg>
+          </div>
+          <div>
+            <p class="tsd-contact__label">Responsible Disclosure</p>
+            <p class="tsd-contact__value">Coordinated vulnerability handling</p>
+          </div>
+        </div>
+
+        <div class="tsd-contact__item">
+          <div class="tsd-contact__icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+          </div>
+          <div>
+            <p class="tsd-contact__label">Email</p>
+            <p class="tsd-contact__value">info@thesecuritydesk.com</p>
+          </div>
+        </div>
+
+        <div class="tsd-contact__item">
+          <div class="tsd-contact__icon">
+            <svg viewBox="0 0 24 24"><path d="M12.65 10A5.99 5.99 0 007 6c-3.31 0-6 2.69-6 6s2.69 6 6 6a5.99 5.99 0 005.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></svg>
+          </div>
+          <div>
+            <p class="tsd-contact__label">PGP Key</p>
+            <p class="tsd-contact__value">Available on request</p>
+          </div>
+        </div>
+
+        <div class="tsd-contact__connect">
+          <h4>Connect with us</h4>
+          <div class="tsd-contact__social">
+            <a href="https://github.com" title="GitHub">
+              <svg viewBox="0 0 24 24"><path d="M12 .3c-6.6 0-12 5.4-12 12 0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2.9-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.1 24 17.6 24 12.3 24 5.7 18.6.3 12 .3"></path></svg>
+            </a>
+            <a href="https://infosec.exchange" title="Mastodon">
+              <svg viewBox="0 0 24 24"><path d="M23.3 5.3c-.4-2.6-2.6-4.6-5.3-5C17.5.2 15.8 0 11.8 0h0c-4 0-4.8.2-5.3.3C3.9.7 1.5 2.5.9 5.1.6 6.4.6 7.8.7 9.1c.1 1.9.1 3.7.3 5.6.1 1.2.3 2.5.6 3.7.6 2.2 2.8 4.1 5 4.9 2.3.8 4.8.9 7.3.4.3-.1.5-.1.8-.2.6-.2 1.3-.4 1.8-.8v-1.8c-1.5.4-3.1.6-4.7.5-2.7 0-3.5-1.3-3.7-1.8-.2-.5-.3-.9-.3-1.4 1.5.4 3.1.5 4.6.5.6 0 1.1 0 1.7-.1 1.9-.1 3.9-.4 5.7-1.1.3-2.5.3-7.3 0-9.8z"></path></svg>
+            </a>
+            <a href="/rss.xml" title="RSS">
+              <svg viewBox="0 0 24 24"><path d="M6.2 15.6a2.2 2.2 0 012.2 2.2c0 1.2-1 2.2-2.2 2.2S4 19 4 17.8a2.2 2.2 0 012.2-2.2M4 4.4A15.6 15.6 0 0119.6 20h-2.8A12.7 12.7 0 004 7.3V4.4m0 5.7a9.9 9.9 0 019.9 9.9h-2.8A7.1 7.1 0 004 12.9V10.1z"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
-.tsd-form { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; padding: 1rem 0 3rem; }
-.tsd-form input, .tsd-form textarea { background: var(--tsd-navy-light); border: 1px solid var(--tsd-line); color: var(--tsd-white); padding: 0.6rem; border-radius: 4px; }
-.tsd-form button { background: var(--tsd-cyan); color: var(--tsd-navy); border: none; padding: 0.7rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+.tsd-contact { max-width: 1100px; margin: 0 auto; padding: 3.5rem 1.5rem 5rem; }
+.tsd-contact__head { text-align: center; margin-bottom: 2.25rem; }
+.tsd-contact__head h1 { font-family: var(--font-display); font-size: 2.4rem; color: var(--tsd-navy); margin: 0 0 0.5rem; }
+.tsd-contact__head p { color: var(--tsd-text-light); font-size: 1rem; margin: 0; }
+
+.tsd-contact__grid {
+  display: grid; grid-template-columns: 1fr 380px; gap: 0;
+  border: 1px solid var(--tsd-border); border-radius: 16px; overflow: hidden;
+  box-shadow: var(--tsd-shadow-sm);
+}
+
+.tsd-contact__left { padding: 40px; background: var(--tsd-bg-card); }
+.tsd-contact__left h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--tsd-navy); margin: 0 0 8px; }
+.tsd-contact__sub { color: var(--tsd-text-light); font-size: 0.92rem; margin: 0 0 28px; line-height: 1.5; }
+
+.tsd-contact__row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.tsd-contact__field { margin-bottom: 20px; }
+.tsd-contact__row label, .tsd-contact__field label {
+  display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--tsd-text-mid);
+  text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 8px;
+}
+.tsd-contact__row input, .tsd-contact__field input, .tsd-contact__field select, .tsd-contact__field textarea {
+  width: 100%; background: var(--tsd-bg-alt); border: 1px solid var(--tsd-border); border-radius: 8px;
+  padding: 14px 16px; color: var(--tsd-navy); font-family: var(--font-body); font-size: 0.95rem;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.tsd-contact__row input:focus, .tsd-contact__field input:focus,
+.tsd-contact__field select:focus, .tsd-contact__field textarea:focus {
+  border-color: var(--tsd-cyan); box-shadow: 0 0 0 3px rgba(0,168,255,.15);
+}
+.tsd-contact__field textarea { min-height: 130px; resize: vertical; }
+
+.tsd-contact__btn {
+  background: var(--tsd-cyan); color: var(--tsd-navy); font-family: var(--font-mono); font-weight: 600;
+  font-size: 0.9rem; padding: 14px 32px; border: none; border-radius: 8px; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 1px; transition: background 0.2s;
+}
+.tsd-contact__btn:hover { background: var(--tsd-cyan-bright); }
+
+.tsd-contact__note {
+  margin-top: 20px; padding: 12px 16px; background: var(--tsd-cyan-subtle);
+  border-left: 3px solid var(--tsd-cyan); border-radius: 0 6px 6px 0;
+  font-size: 0.85rem; color: var(--tsd-text-light);
+}
+.tsd-contact__note strong { color: var(--tsd-cyan-dark); }
+
+.tsd-contact__right {
+  background: linear-gradient(160deg, #EEF4FA, #F7F9FC);
+  padding: 40px 32px; display: flex; flex-direction: column;
+  border-left: 1px solid var(--tsd-border);
+}
+.tsd-contact__right h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--tsd-navy); margin: 0 0 24px; line-height: 1.4; }
+
+.tsd-contact__item {
+  background: var(--tsd-cyan-subtle); border: 1px solid var(--tsd-cyan-border); border-radius: 10px;
+  padding: 16px 20px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px;
+  transition: all 0.2s;
+}
+.tsd-contact__item:hover { background: rgba(0,168,255,.12); border-color: var(--tsd-cyan); transform: translateX(-4px); }
+.tsd-contact__icon {
+  width: 44px; height: 44px; border-radius: 50%; background: rgba(0,168,255,.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.tsd-contact__icon svg { width: 20px; height: 20px; fill: var(--tsd-cyan-dark); }
+.tsd-contact__label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--tsd-cyan-dark); text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 2px; }
+.tsd-contact__value { font-size: 0.95rem; color: var(--tsd-navy); margin: 0; }
+
+.tsd-contact__connect { margin-top: auto; padding-top: 24px; }
+.tsd-contact__connect h4 { font-family: var(--font-mono); font-size: 0.78rem; color: var(--tsd-text-light); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 16px; }
+.tsd-contact__social { display: flex; gap: 12px; }
+.tsd-contact__social a {
+  width: 40px; height: 40px; border-radius: 50%; background: rgba(0,168,255,.1); border: 1px solid var(--tsd-cyan-border);
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s; text-decoration: none;
+}
+.tsd-contact__social a:hover { background: var(--tsd-cyan); border-color: var(--tsd-cyan); }
+.tsd-contact__social a svg { width: 18px; height: 18px; fill: var(--tsd-cyan-dark); transition: fill 0.2s; }
+.tsd-contact__social a:hover svg { fill: var(--tsd-navy); }
+
+@media (max-width: 800px) {
+  .tsd-contact__grid { grid-template-columns: 1fr; }
+  .tsd-contact__row { grid-template-columns: 1fr; }
+  .tsd-contact__right { border-left: none; border-top: 1px solid var(--tsd-border); }
+}
 </style>
