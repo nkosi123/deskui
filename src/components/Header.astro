@@ -1,0 +1,27 @@
+---
+import Logo from './Logo.astro';
+import NewsTicker from './NewsTicker.astro';
+
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Articles', href: '/articles' },
+  { label: 'Threat Intel', href: '/threat-intel' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+<header class="tsd-header">
+  <div class="tsd-container tsd-header__bar">
+    <a href="/" class="tsd-header__logo"><Logo /></a>
+    <nav class="tsd-header__nav">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+  <NewsTicker />
+</header>
+
+<style>
+.tsd-header__bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; }
+.tsd-header__nav { display: flex; gap: 1.75rem; font-family: var(--font-mono); font-size: 0.9rem; }
+.tsd-header__nav a { text-decoration: none; color: var(--tsd-muted); }
+.tsd-header__nav a:hover { color: var(--tsd-cyan); }
+</style>

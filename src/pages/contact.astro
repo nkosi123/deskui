@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Contact | The Security Desk">
+  <h1>Contact</h1>
+  <form name="contact" method="POST" data-netlify="true" class="tsd-form">
+    <input type="hidden" name="form-name" value="contact" />
+    <label>Name <input type="text" name="name" required /></label>
+    <label>Email <input type="email" name="email" required /></label>
+    <label>Message <textarea name="message" rows="5" required></textarea></label>
+    <button type="submit">Send</button>
+  </form>
+</BaseLayout>
+
+<style>
+.tsd-form { display: flex; flex-direction: column; gap: 1rem; max-width: 480px; padding: 1rem 0 3rem; }
+.tsd-form input, .tsd-form textarea { background: var(--tsd-navy-light); border: 1px solid var(--tsd-line); color: var(--tsd-white); padding: 0.6rem; border-radius: 4px; }
+.tsd-form button { background: var(--tsd-cyan); color: var(--tsd-navy); border: none; padding: 0.7rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+</style>

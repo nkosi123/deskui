@@ -1,0 +1,41 @@
+---
+const footerNav = [
+  { label: 'Home', href: '/' },
+  { label: 'Articles', href: '/articles' },
+  { label: 'Threat Intel', href: '/threat-intel' },
+  { label: 'Contact', href: '/contact' },
+];
+const connectLinks = [
+  { label: 'GitHub', href: 'https://github.com/your-handle' },
+  { label: 'Mastodon', href: 'https://infosec.exchange/@your-handle' },
+];
+const topicLinks = [
+  { label: 'Threat Intelligence', href: '/threat-intel' },
+  { label: 'Vulnerabilities', href: '/articles?category=vulnerabilities' },
+];
+---
+<footer class="tsd-footer">
+  <div class="tsd-container tsd-footer__grid">
+    <div>
+      <h3>Navigation</h3>
+      {footerNav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+    <div>
+      <h3>Connect</h3>
+      {connectLinks.map((item) => <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>)}
+    </div>
+    <div>
+      <h3>Topics</h3>
+      {topicLinks.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+  </div>
+  <p class="tsd-footer__copy">© {new Date().getFullYear()} The Security Desk</p>
+</footer>
+
+<style>
+.tsd-footer { border-top: 1px solid var(--tsd-line); padding: 3rem 0 1.5rem; margin-top: 4rem; }
+.tsd-footer__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.tsd-footer__grid h3 { font-size: 0.85rem; color: var(--tsd-cyan); margin-bottom: 0.75rem; }
+.tsd-footer__grid a { display: block; color: var(--tsd-muted); text-decoration: none; font-size: 0.9rem; margin-bottom: 0.4rem; }
+.tsd-footer__copy { text-align: center; color: var(--tsd-muted); font-size: 0.8rem; margin-top: 2rem; }
+</style>

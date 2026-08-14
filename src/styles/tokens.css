@@ -1,0 +1,12 @@
+:root {
+  --tsd-navy: #0A1628;
+  --tsd-navy-light: #0F1E36;
+  --tsd-cyan: #00A8FF;
+  --tsd-white: #F5F7FA;
+  --tsd-muted: #8A94A6;
+  --tsd-line: rgba(255, 255, 255, 0.08);
+
+  --font-display: 'Playfair Display', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Source Sans 3', sans-serif;
+}

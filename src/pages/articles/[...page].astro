@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles } from '../../lib/strapi.js';
+
+export async function getStaticPaths({ paginate }) {
+  const articles = await getArticles();
+  return paginate(articles, { pageSize: 9 });
+}
+
+const { page } = Astro.props;
+---
+<BaseLayout title="Articles | The Security Desk">
+  <h1>Articles</h1>
+  <section class="tsd-grid">
+    {page.data.map((article) => <ArticleCard article={article} />)}
+  </section>
+  <nav class="tsd-pagination" aria-label="Articles pagination">
+    {page.url.prev && <a href={page.url.prev}>← Newer</a>}
+    <span class="tsd-pagination__status">Page {page.currentPage} of {page.lastPage}</span>
+    {page.url.next && <a href={page.url.next}>Older →</a>}
+  </nav>
+</BaseLayout>
+
+<style>
+.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 1rem 0 2rem; }
+.tsd-pagination { display: flex; align-items: center; justify-content: center; gap: 2rem; padding: 1.5rem 0 3rem; font-family: var(--font-mono); font-size: 0.85rem; }
+.tsd-pagination a { color: var(--tsd-cyan); text-decoration: none; }
+.tsd-pagination a:hover { text-decoration: underline; }
+.tsd-pagination__status { color: var(--tsd-muted); }
+</style>

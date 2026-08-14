@@ -1,0 +1,21 @@
+---
+import { getSecurityNews } from '../lib/newsFeed.js';
+const items = await getSecurityNews(10);
+---
+<div class="tsd-ticker" role="marquee" aria-label="Latest security news">
+  <div class="tsd-ticker__track">
+    {items.concat(items).map((item) => (
+      <a class="tsd-ticker__item" href={item.link} target="_blank" rel="noopener noreferrer">
+        {item.title}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+.tsd-ticker { overflow: hidden; background: var(--tsd-navy-light); border-top: 1px solid var(--tsd-line); border-bottom: 1px solid var(--tsd-line); white-space: nowrap; }
+.tsd-ticker__track { display: inline-flex; gap: 3rem; padding: 0.5rem 0; animation: tsd-scroll 60s linear infinite; }
+.tsd-ticker__item { color: var(--tsd-muted); font-family: var(--font-mono); font-size: 0.85rem; text-decoration: none; }
+.tsd-ticker__item:hover { color: var(--tsd-cyan); }
+@keyframes tsd-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+</style>

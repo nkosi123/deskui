@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getArticlesByCategory } from '../lib/strapi.js';
+
+const articles = await getArticlesByCategory('threat-intelligence');
+---
+<BaseLayout title="Threat Intel | The Security Desk">
+  <h1>Threat Intelligence</h1>
+  <section class="tsd-grid">
+    {articles.map((article) => <ArticleCard article={article} />)}
+  </section>
+</BaseLayout>
+
+<style>
+.tsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; padding: 1rem 0 2rem; }
+</style>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticles, getArticleBySlug } from '../../lib/strapi.js';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+  return articles.map((a) => ({ params: { slug: a.slug } }));
+}
+
+const { slug } = Astro.params;
+const article = await getArticleBySlug(slug);
+---
+<BaseLayout title={article.title} description={article.excerpt}>
+  <article class="tsd-article">
+    <span class="tsd-tag">{article.category}</span>
+    <h1>{article.title}</h1>
+    <p class="tsd-article__meta">{article.author} · {new Date(article.publishedDate).toLocaleDateString()}</p>
+    {article.imageUrl && <img src={article.imageUrl} alt={article.title} />}
+    <div class="tsd-article__body" set:html={marked.parse(article.body || '')} />
+  </article>
+</BaseLayout>
+
+<style>
+.tsd-article { max-width: 760px; margin: 0 auto; padding: 2rem 0; }
+.tsd-article img { width: 100%; border-radius: 6px; margin: 1.5rem 0; }
+.tsd-article__meta { color: var(--tsd-muted); font-family: var(--font-mono); font-size: 0.85rem; }
+.tsd-article__body { line-height: 1.8; }
+</style>
