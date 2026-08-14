@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[env.production]
+  STRAPI_URL = "https://strapi-production-3be2.up.railway.app"
